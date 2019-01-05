@@ -3,11 +3,12 @@ alias tmux="TERM=xterm-256color tmux -2 attach || TERM=xterm-256color tmux -2 ne
 
 [[ ! -f ~/.tmux.conf ]] && touch ~/.tmux.conf
 
-TMUX_AUTOSTART="false"
 
 if (( $+commands[tmux] )); then
   if [[ -n "$SSH_CONNECTION" ]]; then
     TMUX_AUTOSTART="true"
+    esle
+    TMUX_AUTOSTART="false"
   fi
 fi
 
