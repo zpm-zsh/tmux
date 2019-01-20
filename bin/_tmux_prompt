@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-echo -n "#[fg=green]$(whoami)"
-echo -n "#[fg=blue]@"
-echo -n "#[fg=green]$(hostname)"
+echo -n "#[fg=green,bold]$(whoami)"
+echo -n "#[fg=blue,bold]@"
+echo -n "#[fg=green,bold]$(hostname)"
