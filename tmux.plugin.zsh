@@ -5,18 +5,22 @@ alias tmux="TERM=xterm-256color tmux -2 attach || TERM=xterm-256color tmux -2 ne
 
 
 if (( $+commands[tmux] )); then
-  if [[ -n "$SSH_CONNECTION" ]]; then
-    TMUX_AUTOSTART="true"
-  else
-    TMUX_AUTOSTART="false"
+  if [[ -z "$TMUX_AUTOSTART" ]]; then
+    if [[ -n "$SSH_CONNECTION" ]]; then
+      TMUX_AUTOSTART="true"
+    else
+      TMUX_AUTOSTART="false"
+    fi
   fi
+else
+  TMUX_AUTOSTART="false"
 fi
 
 
 function _tmux_autostart(){
-
+  
   if [[ "$TMUX_AUTOSTART" == "true" && -z "$TMUX" ]]; then
-    TERM=xterm-256color \tmux -2 attach || TERM=xterm-256color \tmux -2 new
+    tmux -2 attach || tmux -2 new
     exit 0
   fi
   precmd_functions=(${precmd_functions#_tmux_autostart})
