@@ -2,7 +2,7 @@
 
 tecreset='\e[0m'
 
-if [[ "$OSTYPE" == "linux-gnu" ]]; then
+if check-if linux; then
 
   echo -ne "\E[32mOperating System: \E[36m"
   echo -ne "$(uname -o) "
@@ -33,7 +33,7 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
 
 fi
 
-if [[ "$OSTYPE" == "linux-android"* ]]; then
+if check-if android; then
 
   echo -ne "\E[32mOperating System: \E[36m"
   echo -n "$(uname -o) "
@@ -54,7 +54,7 @@ if [[ "$OSTYPE" == "linux-android"* ]]; then
 
 fi
 
-if [[ "$(uname)" == "FreeBSD" ]]; then
+if check-if bsd; then
 
   echo -ne "\E[32mOperating System: \E[36m"
   echo -ne "$(uname -o) "
