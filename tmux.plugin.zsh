@@ -1,11 +1,10 @@
 DEPENDENCES_ARCH+=( tmux )
 DEPENDENCES_DEBIAN+=( tmux )
+DEPENDENCES_ZSH+=( zpm-zsh/helpers )
+
+which zpm >/dev/null && zpm load zpm-zsh/helpers
 
 [[ -f ~/.tmux.conf ]] || touch ~/.tmux.conf
-
-if ! check-if tmux; then
-  alias tmux="tmux attach || TERM=xterm-256color tmux new"
-fi
 
 if (( $+commands[tmux] )); then
   if [[ ! "$TMUX_AUTOSTART" == "false" ]] && [[ -n "$SSH_CONNECTION" ]]; then
