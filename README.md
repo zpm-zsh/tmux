@@ -16,8 +16,6 @@ This plugin is made to be fast. It runs in background and updates information on
 
 ## Installation
 
-### This plugin depends on [helpers](https://github.com/zpm-zsh/helpers)
-
 ### If you use [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh)
 
 * Clone this repository into `~/.oh-my-zsh/custom/plugins`
