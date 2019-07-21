@@ -1,7 +1,12 @@
 DEPENDENCES_ARCH+=( tmux )
 DEPENDENCES_DEBIAN+=( tmux )
 
-which zpm >/dev/null && zpm load zpm-zsh/helpers
+
+DEPENDENCES_ZSH+=( zpm-zsh/helpers )
+
+if command -v zpm >/dev/null; then
+  zpm zpm-zsh/helpers
+fi
 
 if (( $+commands[tmux] )); then
   if [[ ! "$TMUX_AUTOSTART" == "false" ]] && [[ -n "$SSH_CONNECTION" ]]; then
@@ -14,9 +19,9 @@ function _tmux_autostart(){
     tmux attach || TERM=xterm-256color tmux new
     exit 0
   fi
-  precmd_functions=(${precmd_functions#_tmux_autostart})
+  add-zsh-hook -d precmd _tmux_autostart
 }
-precmd_functions+=( _tmux_autostart )
+add-zsh-hook precmd _tmux_autostart
 
 if [[ $TMUX_MOTD != false && ! -z $TMUX  && \
 $(\tmux list-windows | wc -l | tr -d ' ') == 1 ]] && \
