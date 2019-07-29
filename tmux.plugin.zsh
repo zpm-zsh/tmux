@@ -6,7 +6,7 @@ if command -v zpm >/dev/null; then
   zpm zpm-zsh/helpers
 fi
 
-if  command -v tmux 2>/dev/null; then
+if command -v tmux >/dev/null; then
   if [[ "$TMUX_AUTOSTART" != "false" && -n "$SSH_CONNECTION" ]]; then
     TMUX_AUTOSTART="true"
   fi
