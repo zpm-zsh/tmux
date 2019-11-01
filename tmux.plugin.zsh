@@ -19,6 +19,7 @@ function _tmux_autostart(){
   fi
   add-zsh-hook -d precmd _tmux_autostart
 }
+autoload -Uz add-zsh-hook
 add-zsh-hook precmd _tmux_autostart
 
 if [[ $TMUX_MOTD != false && ! -z $TMUX  && \
