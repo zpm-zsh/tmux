@@ -2,11 +2,11 @@ DEPENDENCES_ARCH+=( tmux )
 DEPENDENCES_DEBIAN+=( tmux )
 DEPENDENCES_ZSH+=( zpm-zsh/helpers )
 
-if command -v zpm >/dev/null; then
+if (( $+function[zpm] )); then
   zpm zpm-zsh/helpers
 fi
 
-if command -v tmux >/dev/null; then
+if (( $+commands[tmux] )); then
   if [[ "$TMUX_AUTOSTART" != "false" && -n "$SSH_CONNECTION" ]]; then
     TMUX_AUTOSTART="true"
   fi
