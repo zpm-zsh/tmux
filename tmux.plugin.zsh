@@ -2,7 +2,7 @@ DEPENDENCES_ARCH+=( tmux )
 DEPENDENCES_DEBIAN+=( tmux )
 DEPENDENCES_ZSH+=( zpm-zsh/helpers )
 
-if (( $+function[zpm] )); then
+if (( $+functions[zpm] )); then
   zpm zpm-zsh/helpers
 fi
 
