@@ -14,7 +14,7 @@ fi
 
 function _tmux_autostart(){
   if [[ "$TMUX_AUTOSTART" == "true" && -z "$TMUX" ]]; then
-    (tmux ls | grep -vq attached && tmux -2 at) 2>/dev/null || TERM=xterm-256color tmux -2
+    TERM=xterm-256color tmux -2 new-session -A -s main 
     exit 0
   fi
   add-zsh-hook -d precmd _tmux_autostart
