@@ -12,8 +12,6 @@ if check-if linux; then
 
   echo -e "${c[green]}Hostname: ${c[cyan]}${HOST:-$HOSTNAME}"
 
-  echo -e "${c[green]}Logged In Users: ${c[cyan]}\n$(who)"
-
   echo -e "${c[green]}Ram Usages: ${c[cyan]}\n $(\free -h | grep -v +)"
 
   echo -e "${c[green]}Disk Usages: ${c[cyan]}\n $(\df -h | sed -n '1 p') \n$(df -h | grep '^/dev/*')"
@@ -60,8 +58,6 @@ if check-if bsd; then
   echo -e  "$(uname -m) "
 
   echo -e "${c[green]}Hostname: ${c[cyan]}$(hostname)"
-
-  echo -e "${c[green]}Logged In Users: ${c[cyan]}\n$(who)"
 
   echo -e "${c[green]}Disk Usages: ${c[cyan]}\n $(\df -h | sed -n '1 p') \n$(df -h | grep '^/dev/*')"
 
