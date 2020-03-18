@@ -11,6 +11,12 @@ if (( $+functions[zpm] )); then
   zpm zpm-zsh/helpers
 fi
 
+if [[ $PMSPEC != *f* ]] {
+  fpath+=( "${0:h}/functions" )
+}
+
+autoload -Uz tmux-motd
+
 if [[ $PMSPEC != *b* ]] {
   PATH=$PATH:"${0:h}/bin"
 }
@@ -34,6 +40,6 @@ add-zsh-hook precmd _tmux_autostart
 if [[ $TMUX_MOTD != false && ! -z $TMUX ]]; then
   declare -a list_windows; list_windows=( ${(f)"$(command tmux list-windows)"} )
   if [[ "${#list_windows}" == 1 && "${list_windows}" == *"1 panes"*  ]]; then
-    _tmux_motd
+    tmux-motd
   fi
 fi
