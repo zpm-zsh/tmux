@@ -21,25 +21,26 @@ if [[ $PMSPEC != *b* ]] {
   PATH=$PATH:"${0:h}/bin"
 }
 
+
 if (( $+commands[tmux] )); then
-  if [[ "$TMUX_AUTOSTART" != "false" && -n "$SSH_CONNECTION" ]]; then
-    TMUX_AUTOSTART="true"
-  fi
-fi
+  TMUX_AUTOSTART=${TMUX_AUTOSTART:-"true"}
 
-function _tmux_autostart() {
   if [[ "$TMUX_AUTOSTART" == "true" && -z "$TMUX" ]]; then
-    TERM=xterm-256color tmux -2 new-session -A -s main
-    exit 0
-  fi
-  add-zsh-hook -d precmd _tmux_autostart
-}
-autoload -Uz add-zsh-hook
-add-zsh-hook precmd _tmux_autostart
+    function _tmux_autostart() {
+      TERM=xterm-256color tmux -2 new-session -A -s main
+      exit 0
+      add-zsh-hook -d precmd _tmux_autostart
+    }
 
-if [[ $TMUX_MOTD != false && ! -z $TMUX ]]; then
-  declare -a list_windows; list_windows=( ${(f)"$(command tmux list-windows)"} )
-  if [[ "${#list_windows}" == 1 && "${list_windows}" == *"1 panes"*  ]]; then
-    tmux-motd
+    autoload -Uz add-zsh-hook
+    add-zsh-hook precmd _tmux_autostart
   fi
+
+  if [[ $TMUX_MOTD != false && ! -z $TMUX ]]; then
+    declare -a list_windows; list_windows=( ${(f)"$(command tmux list-windows)"} )
+    if [[ "${#list_windows}" == 1 && "${list_windows}" == *"1 panes"*  ]]; then
+      tmux-motd
+    fi
+  fi
+
 fi

@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 
-
 if check-if linux; then
-
   echo -ne "${c[green]}Operating System: ${c[cyan]}"
   echo -ne "$(uname -o) "
   echo -e "$(lsb_release -si -sr) "
@@ -18,16 +16,16 @@ if check-if linux; then
 
   echo -e "${c[green]}System Uptime: ${c[cyan]}$(uptime | xargs| sed -e 's/.*up\ \(.*\),\ [0-9]*\ .*/\1/g')"
 
-  [[ -f /var/log/auth.log ]] && \
-    echo -e "${c[green]}Failed Login: ${c[cyan]}$(cat /var/log/auth.log | grep sshd | grep Fail | wc -l )" || \
-    echo -e "${c[green]}Failed Login: ${c[cyan]}$( journalctl -u sshd | grep Fail | wc -l )"
+  if [[ -f /var/log/auth.log ]]; then
+    echo -e "${c[green]}Failed Login: ${c[cyan]}$(cat /var/log/auth.log 2>/dev/null | grep sshd | grep Fail | wc -l )"
+  else
+    echo -e "${c[green]}Failed Login: ${c[cyan]}$( journalctl -u sshd 2>/dev/null | grep Fail | wc -l )"
+  fi
 
   echo -en "${c[reset]}"
-
 fi
 
 if check-if android; then
-
   echo -ne "${c[green]}Operating System: ${c[cyan]}"
   echo -n "$(uname -o) "
 
@@ -44,11 +42,9 @@ if check-if android; then
   echo -e "${c[green]}System Uptime: ${c[cyan]}$(uptime | xargs| sed -e 's/.*up\ \(.*\),\ [0-9]*\ .*/\1/g')"
 
   echo -en "${c[reset]}"
-
 fi
 
 if check-if bsd; then
-
   echo -ne "${c[green]}Operating System: ${c[cyan]}"
   echo -ne "$(uname -o) "
   echo -e "$(uname -r) "
@@ -64,5 +60,4 @@ if check-if bsd; then
   echo -e "${c[green]}System Uptime: ${c[cyan]}$(uptime | xargs| sed -e 's/.*up\ \(.*\),\ [0-9]*\ .*/\1/g')"
 
   echo -en "${c[reset]}"
-
 fi
