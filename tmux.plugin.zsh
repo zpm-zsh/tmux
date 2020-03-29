@@ -21,11 +21,10 @@ if [[ $PMSPEC != *b* ]] {
   PATH=$PATH:"${0:h}/bin"
 }
 
-
 if (( $+commands[tmux] )); then
-  TMUX_AUTOSTART=${TMUX_AUTOSTART:-"true"}
+  TMUX_AUTOSTART=${TMUX_AUTOSTART:-'true'}
 
-  if [[ "$TMUX_AUTOSTART" == "true" && -z "$TMUX" ]]; then
+  if [[ "$TMUX_AUTOSTART" == 'true' && -z "$TMUX" ]]; then
     function _tmux_autostart() {
       TERM=xterm-256color tmux -2 new-session -A -s main
       exit 0
