@@ -8,7 +8,7 @@ DEPENDENCES_ARCH+=( tmux )
 DEPENDENCES_DEBIAN+=( tmux )
 
 if (( $+functions[zpm] )); then
-  zpm zpm-zsh/helpers
+  zpm load zpm-zsh/helpers
 fi
 
 if [[ $PMSPEC != *f* ]] {
