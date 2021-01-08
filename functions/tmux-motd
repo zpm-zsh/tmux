@@ -1,7 +1,10 @@
 #!/usr/bin/env zsh
 
 echo -ne "${c[green]}Operating System: ${c[cyan]}"
-if (( $+commands[lsb_release] )); then
+if [[ -r "/etc/os-release" ]]; then
+  source "/etc/os-release"
+  echo "$PRETTY_NAME"
+elif (( $+commands[lsb_release] )); then
   lsb_release -si -sr
 else
   uname -s
