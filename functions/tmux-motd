@@ -4,7 +4,7 @@ echo -ne "${c[green]}Operating System: ${c[cyan]}"
 if (( $+commands[lsb_release] )); then
   lsb_release -si -sr
 else
-  uname -mrso
+  uname -s
 fi
 
 echo -ne "${c[green]}Kernel: ${c[cyan]}"
