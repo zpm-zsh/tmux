@@ -1,16 +1,31 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
-declare -a lines; lines=( ${(f)"$(</etc/uptime)"} )
+while read line; do
 
-seconds=${lines% *}
+  seconds=${line%%\.*}
 
-local human total_seconds="$seconds"
-local days=$(( total_seconds / 60 / 60 / 24 ))
-local hours=$(( total_seconds / 60 / 60 % 24 ))
-local minutes=$(( total_seconds / 60 % 60 ))
-local seconds=$(( total_seconds % 60 ))
-(( days > 0 )) && human+="${days}d "
-(( hours > 0 )) && human+="${hours}h "
-(( minutes > 0 )) && human+="${minutes}m "
-human+="${seconds}s"
-echo "$human"
+  total_seconds="$seconds"
+  echo $total_seconds
+  days=$(( total_seconds / 60 / 60 / 24 ))
+  hours=$(( total_seconds / 60 / 60 % 24 ))
+  minutes=$(( total_seconds / 60 % 60 ))
+  seconds=$(( total_seconds % 60 ))
+
+  if [[ $days > 0 ]]; then
+    human="$human${days}d "
+  fi
+
+  if [[ $hours > 0 ]]; then
+    human="$human${hours}h "
+  fi
+
+  if [[ $minutes > 0 ]]; then
+    human="$human${minutes}m "
+  fi
+
+  human="$human${seconds}s"
+  echo -n "$human"
+
+  exit 0
+
+done < /proc/uptime
