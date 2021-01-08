@@ -2,8 +2,7 @@
 
 echo -ne "${c[green]}Operating System: ${c[cyan]}"
 if (( $+commands[lsb_release] )); then
-  echo -ne "$(uname -o) "
-  echo -e "$(lsb_release -si -sr) "
+  lsb_release -si -sr
 else
   uname -mrso
 fi
