@@ -1,9 +1,8 @@
 #!/usr/bin/env zsh
 
-echo -n "${c[green]}Operating System: ${c[cyan]}$(_tmux_uname)"
+echo -e "${c[green]}Operating System: ${c[cyan]}$(_tmux_uname)"
 
-echo -ne "${c[green]}Kernel: ${c[cyan]}"
-echo -e  "$(uname -rm) "
+echo -e "${c[green]}Kernel: ${c[cyan]}$(uname -rm)"
 
 echo -e "${c[green]}Hostname: ${c[cyan]}${HOST:-$HOSTNAME}"
 
