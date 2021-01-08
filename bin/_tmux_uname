@@ -3,7 +3,7 @@
 if [[ -r "/etc/os-release" ]]; then
   source "/etc/os-release"
   echo "$PRETTY_NAME"
-elif (( $+commands[lsb_release] )); then
+elif hash lsb_release 2>/dev/null; then
   lsb_release -si -sr
 else
   uname -s
