@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 if [ -r "/etc/os-release" ]; then
-  source "/etc/os-release"
+  . "/etc/os-release"
   echo "$PRETTY_NAME"
 elif hash lsb_release 2>/dev/null; then
   lsb_release -si -sr
