@@ -7,9 +7,9 @@
 DEPENDENCES_ARCH+=( tmux )
 DEPENDENCES_DEBIAN+=( tmux )
 
-if (( $+functions[zpm] )); then
-  zpm load zpm-zsh/helpers
-fi
+if (( $+functions[zpm] )); then #DO_NOT_INCLUDE_LINE_IN_ZPM_CACHE
+  zpm load zpm-zsh/helpers #DO_NOT_INCLUDE_LINE_IN_ZPM_CACHE
+fi #DO_NOT_INCLUDE_LINE_IN_ZPM_CACHE
 
 if [[ $PMSPEC != *f* ]] {
   fpath+=( "${0:h}/functions" )

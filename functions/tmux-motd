@@ -1,63 +1,24 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
-if check-if linux; then
-  echo -ne "${c[green]}Operating System: ${c[cyan]}"
-  echo -ne "$(uname -o) "
-  echo -e "$(lsb_release -si -sr) "
+echo -ne "${c[green]}Operating System: ${c[cyan]}"
+echo -ne "$(uname -o) "
+echo -e "$(lsb_release -si -sr) "
 
-  echo -ne "${c[green]}Kernel: ${c[cyan]}"
-  echo -e  "$(uname -rm) "
+echo -ne "${c[green]}Kernel: ${c[cyan]}"
+echo -e  "$(uname -rm) "
 
-  echo -e "${c[green]}Hostname: ${c[cyan]}${HOST:-$HOSTNAME}"
+echo -e "${c[green]}Hostname: ${c[cyan]}${HOST:-$HOSTNAME}"
 
-  echo -e "${c[green]}Ram Usages: ${c[cyan]}\n $(\free -h | grep -v +)"
+echo -e "${c[green]}Ram Usages: ${c[cyan]}\n $(command free -h | grep -v +)"
 
-  echo -e "${c[green]}Disk Usages: ${c[cyan]}\n $(\df -h | sed -n '1 p') \n$(df -h | grep '^/dev/*')"
+echo -e "${c[green]}Disk Usages: ${c[cyan]}\n $(command df -h | sed -n '1 p') \n$(command df -h | grep '^/dev/*')"
 
-  echo -e "${c[green]}System Uptime: ${c[cyan]}$(uptime | xargs| sed -e 's/.*up\ \(.*\),\ [0-9]*\ .*/\1/g')"
+echo -e "${c[green]}System Uptime: ${c[cyan]}$(_tmux_uptime)"
 
-  if [[ -f /var/log/auth.log ]]; then
-    echo -e "${c[green]}Failed Login: ${c[cyan]}$(cat /var/log/auth.log 2>/dev/null | grep sshd | grep Fail | wc -l )"
-  else
-    echo -e "${c[green]}Failed Login: ${c[cyan]}$( journalctl -u sshd 2>/dev/null | grep Fail | wc -l )"
-  fi
-
-  echo -en "${c[reset]}"
+if [[ -f /var/log/auth.log ]]; then
+  echo -e "${c[green]}Failed Login: ${c[cyan]}$(cat /var/log/auth.log 2>/dev/null | grep sshd | grep Fail | wc -l )"
+else
+  echo -e "${c[green]}Failed Login: ${c[cyan]}$( journalctl -u sshd 2>/dev/null | grep Fail | wc -l )"
 fi
 
-if check-if android; then
-  echo -ne "${c[green]}Operating System: ${c[cyan]}"
-  echo -n "$(uname -o) "
-
-  echo -ne "${c[green]}Kernel: ${c[cyan]}"
-  echo -ne  "$(uname -r) "
-  echo -e  "$(uname -m) "
-
-  echo -e "${c[green]}Hostname: ${c[cyan]}$(hostname)"
-
-  echo -e "${c[green]}Ram Usages: ${c[cyan]}\n $(\free -m | grep -v +)"
-
-  echo -e "${c[green]}Disk Usages: ${c[cyan]}\n $(\df -h | sed -n '1 p') \n$(\df -h | grep '^/dev/*')"
-
-  echo -e "${c[green]}System Uptime: ${c[cyan]}$(uptime | xargs| sed -e 's/.*up\ \(.*\),\ [0-9]*\ .*/\1/g')"
-
-  echo -en "${c[reset]}"
-fi
-
-if check-if bsd; then
-  echo -ne "${c[green]}Operating System: ${c[cyan]}"
-  echo -ne "$(uname -o) "
-  echo -e "$(uname -r) "
-
-  echo -ne "${c[green]}Kernel: ${c[cyan]}"
-  echo -ne  "$(uname -r) "
-  echo -e  "$(uname -m) "
-
-  echo -e "${c[green]}Hostname: ${c[cyan]}$(hostname)"
-
-  echo -e "${c[green]}Disk Usages: ${c[cyan]}\n $(\df -h | sed -n '1 p') \n$(df -h | grep '^/dev/*')"
-
-  echo -e "${c[green]}System Uptime: ${c[cyan]}$(uptime | xargs| sed -e 's/.*up\ \(.*\),\ [0-9]*\ .*/\1/g')"
-
-  echo -en "${c[reset]}"
-fi
+echo -en "${c[reset]}"
