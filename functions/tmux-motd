@@ -1,8 +1,12 @@
 #!/usr/bin/env zsh
 
 echo -ne "${c[green]}Operating System: ${c[cyan]}"
-echo -ne "$(uname -o) "
-echo -e "$(lsb_release -si -sr) "
+if (( $+commands[lsb_release] )); then
+  echo -ne "$(uname -o) "
+  echo -e "$(lsb_release -si -sr) "
+else
+  uname -mrso
+fi
 
 echo -ne "${c[green]}Kernel: ${c[cyan]}"
 echo -e  "$(uname -rm) "
