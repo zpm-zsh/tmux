@@ -6,7 +6,7 @@ echo -e "${c[green]}Kernel: ${c[cyan]}$(uname -rm)"
 
 echo -e "${c[green]}Hostname: ${c[cyan]}${HOST:-$HOSTNAME}"
 
-echo -e "${c[green]}Ram Usages: ${c[cyan]}\n $(command free -h | grep -v +)"
+echo -e "${c[green]}Ram Usages: ${c[cyan]}\n $(if command -v free >/dev/null 2>&1; then free -h; else vm_stat; fi | grep -v +)"
 
 echo -e "${c[green]}Disk Usages: ${c[cyan]}\n $(command df -h | sed -n '1 p') \n$(command df -h | grep '^/dev/*')"
 
