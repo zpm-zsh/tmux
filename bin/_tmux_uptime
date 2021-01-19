@@ -1,29 +1,37 @@
 #!/usr/bin/env sh
 
-while read line; do
-  seconds=${line%%\.*}
+if [[ -d "/proc/uptime" ]]; then
+  while read line; do
+    seconds=${line%%\.*}
 
-  total_seconds="$seconds"
+    total_seconds="$seconds"
 
-  days=$(( total_seconds / 60 / 60 / 24 ))
-  hours=$(( total_seconds / 60 / 60 % 24 ))
-  minutes=$(( total_seconds / 60 % 60 ))
-  seconds=$(( total_seconds % 60 ))
+    days=$(( total_seconds / 60 / 60 / 24 ))
+    hours=$(( total_seconds / 60 / 60 % 24 ))
+    minutes=$(( total_seconds / 60 % 60 ))
+    seconds=$(( total_seconds % 60 ))
 
-  if [ $days -gt 0 ]; then
-    human="$human${days}d "
-  fi
+    if [ $days -gt 0 ]; then
+      human="$human${days}d "
+    fi
 
-  if [ $hours -gt 0 ]; then
-    human="$human${hours}h "
-  fi
+    if [ $hours -gt 0 ]; then
+      human="$human${hours}h "
+    fi
 
-  if [ $minutes -gt 0 ]; then
-    human="$human${minutes}m "
-  fi
+    if [ $minutes -gt 0 ]; then
+      human="$human${minutes}m "
+    fi
 
-  human="$human${seconds}s"
-  echo -n "$human"
+    human="$human${seconds}s"
+    echo -n "$human"
 
-  exit 0
-done < /proc/uptime
+    exit 0
+  done < /proc/uptime
+else
+  boottime=`sysctl -n kern.boottime | awk '{print $4}' | sed 's/,//g'`
+  unixtime=`date +%s`
+  timeAgo=$(($unixtime - $boottime))
+  uptime=`awk -v time=$timeAgo 'BEGIN { seconds = time % 60; minutes = int(time / 60 % 60); hours = int(time / 60 / 60 % 24); days = int(time / 60 / 60 / 24); printf("%.0f days, %.0f hours, %.0f minutes, %.0f seconds", days, hours, minutes, seconds); exit }'`
+  echo $uptime
+fi
