@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
 
-echo -n "#[fg=green,bold]$(whoami)"
+echo -n "#[fg=green,bold]${USER:-$USERNAME}"
 echo -n "#[fg=blue,bold]@"
-echo -n "#[fg=green,bold]$(hostname)"
+echo -n "#[fg=green,bold]${HOST:-$HOSTNAME}"
