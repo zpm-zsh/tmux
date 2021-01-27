@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
 
-echo -n "#[fg=green,bold]${USER:-$USERNAME}"
-echo -n "#[fg=blue,bold]@"
-echo "#[fg=green,bold]${HOST:-$HOSTNAME}"
+echo -n "${USER:-$USERNAME}"
+echo -n '@'
+echo -n "#h"
