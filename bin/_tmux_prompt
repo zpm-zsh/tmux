@@ -1,5 +1,20 @@
 #!/usr/bin/env sh
 
+if [ "$1" = 'full' ]; then
+
+  if [ "${USER:-$USERNAME}" = 'root' ]; then
+    echo -n "#[bg=colour1,fg=colour0,bold] ${USER:-$USERNAME}"
+    echo -n '@'
+    echo -n "#h #[fg=default,bg=default]"
+  else
+    echo -n "#[bg=colour2,fg=colour0,bold] ${USER:-$USERNAME}"
+    echo -n '@'
+    echo -n "#h #[fg=default,bg=default]"
+  fi
+
+  exit 0
+fi
+
 echo -n "${USER:-$USERNAME}"
 echo -n '@'
-echo -n "#h"
+echo -n '#h'
