@@ -8,7 +8,7 @@ DEPENDENCES_ARCH+=( tmux )
 DEPENDENCES_DEBIAN+=( tmux )
 
 if (( $+functions[zpm] )); then #DO_NOT_INCLUDE_LINE_IN_ZPM_CACHE
-  zpm load zpm-zsh/helpers #DO_NOT_INCLUDE_LINE_IN_ZPM_CACHE
+  zpm load zpm-zsh/colors zpm-zsh/helpers #DO_NOT_INCLUDE_LINE_IN_ZPM_CACHE
 fi #DO_NOT_INCLUDE_LINE_IN_ZPM_CACHE
 
 if [[ $PMSPEC != *f* ]] {
