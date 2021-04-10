@@ -1,33 +1,4 @@
 #!/usr/bin/env sh
 
-if [ -r "/proc/uptime" ]; then
-  while read line; do
-    seconds=${line%%\.*}
-    total_seconds="$seconds"
-    break
-  done < /proc/uptime
-else
-  boottime=`sysctl -n kern.boottime | awk '{print $4}' | sed 's/,//g'`
-  unixtime=`date +%s`
-  total_seconds=$(($unixtime - $boottime))
-fi
+uptime -s
 
-days=$(( total_seconds / 60 / 60 / 24 ))
-hours=$(( total_seconds / 60 / 60 % 24 ))
-minutes=$(( total_seconds / 60 % 60 ))
-seconds=$(( total_seconds % 60 ))
-
-if [ $days -gt 0 ]; then
-  human="$human${days}d "
-fi
-
-if [ $hours -gt 0 ]; then
-  human="$human${hours}h "
-fi
-
-if [ $minutes -gt 0 ]; then
-  human="$human${minutes}m "
-fi
-
-human="$human${seconds}s"
-echo -n "$human"
