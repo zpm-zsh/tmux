@@ -23,10 +23,16 @@ if [[ $PMSPEC != *b* ]] {
 
 if (( $+commands[tmux] )); then
   TMUX_AUTOSTART=${TMUX_AUTOSTART:-'true'}
+  TMUX_OVERRIDE_TERM=${TMUX_OVERRIDE_TERM:-'true'}
 
   if [[ "$TMUX_AUTOSTART" == 'true' && -z "$TMUX" ]]; then
     function _tmux_autostart() {
-      TERM=xterm-256color tmux -2 new-session -A -s main
+      if [[ "$TMUX_OVERRIDE_TERM" == 'true' ]]; then
+        TERM=xterm-256color tmux -2 new-session -A -s main
+      else
+        tmux -2 new-session -A -s main
+      fi
+
       exit 0
     }
 
