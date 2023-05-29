@@ -6,6 +6,9 @@ when you login via SSH and will show motd in the first window.
 Autostart can be disabled (or enabled on local host) by setting the variable `TMUX_AUTOSTART=false`, and  
 motd display can be disabled by setting `TMUX_MOTD=false`
 
+You can preserve your default `TERM` value by setting the variable `TMUX_OVERRIDE_TERM=false`. It can
+be useful to get truecolors working properly in neovim.
+
 ### Example
 
 ```sh
