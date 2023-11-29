@@ -22,7 +22,7 @@ if [[ $PMSPEC != *b* ]] {
 }
 
 if (( $+commands[tmux] )); then
-  TMUX_AUTOSTART=${TMUX_AUTOSTART:-'false'}
+  TMUX_AUTOSTART=${TMUX_AUTOSTART:-'true'}
   TMUX_OVERRIDE_TERM=${TMUX_OVERRIDE_TERM:-'true'}
 
   if [[ "$TMUX_AUTOSTART" == 'true' && -z "$TMUX" ]]; then
@@ -40,7 +40,7 @@ if (( $+commands[tmux] )); then
     add-zsh-hook precmd _tmux_autostart
   fi
 
-  if [[ $TMUX_MOTD != false && ! -z $TMUX ]]; then
+  if [[ $TMUX_MOTD == true && ! -z $TMUX ]]; then
     declare -a list_windows; list_windows=( ${(f)"$(command tmux list-windows)"} )
     if [[ "${#list_windows}" == 1 && "${list_windows}" == *"1 panes"*  ]]; then
       tmux-motd
