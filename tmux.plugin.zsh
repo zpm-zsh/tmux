@@ -22,7 +22,7 @@ if [[ $PMSPEC != *b* ]] {
 }
 
 if (( $+commands[tmux] )); then
-  TMUX_AUTOSTART=${TMUX_AUTOSTART:-'true'}
+  TMUX_AUTOSTART=${TMUX_AUTOSTART:-'false'}
   TMUX_OVERRIDE_TERM=${TMUX_OVERRIDE_TERM:-'true'}
 
   if [[ "$TMUX_AUTOSTART" == 'true' && -z "$TMUX" ]]; then
