@@ -22,15 +22,22 @@ if [[ $PMSPEC != *b* ]] {
 }
 
 if (( $+commands[tmux] )); then
-  TMUX_AUTOSTART=${TMUX_AUTOSTART:-'true'}
+  if [[ -z "$TMUX_AUTOSTART" ]]; then
+    if [[ -n "$SSH_CONNECTION" || -n "$SSH_CLIENT" || -n "$SSH_TTY" ]]; then
+      TMUX_AUTOSTART='true'
+    else
+      TMUX_AUTOSTART='false'
+    fi
+  fi
+
   TMUX_OVERRIDE_TERM=${TMUX_OVERRIDE_TERM:-'true'}
 
   if [[ "$TMUX_AUTOSTART" == 'true' && -z "$TMUX" ]]; then
     function _tmux_autostart() {
       if [[ "$TMUX_OVERRIDE_TERM" == 'true' ]]; then
-        TERM=xterm-256color tmux -2 new-session -A -s main
+        TERM=xterm-256color tmux -2 attach-session || TERM=xterm-256color tmux -2 new-session
       else
-        tmux -2 new-session -A -s main
+        tmux -2 attach-session || tmux -2 new-session
       fi
 
       exit 0

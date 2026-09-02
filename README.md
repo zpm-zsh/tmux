@@ -3,8 +3,9 @@
 A small plugin for Tmux. It will setup the `TERM` variable, and will start `tmux` automaticaliy
 when you login via SSH and will show motd in the first window.
 
-Autostart can be disabled (or enabled on local host) by setting the variable `TMUX_AUTOSTART=false`, and  
-motd display can be disabled by setting `TMUX_MOTD=false`
+Autostart happens only when you login via SSH. Set `TMUX_AUTOSTART=true` to enable it on a local
+host as well, or `TMUX_AUTOSTART=false` to disable it completely. Motd display can be disabled by
+setting `TMUX_MOTD=false`
 
 You can preserve your default `TERM` value by setting the variable `TMUX_OVERRIDE_TERM=false`. It can
 be useful to get truecolors working properly in neovim.
