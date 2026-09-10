@@ -34,13 +34,15 @@ if (( $+commands[tmux] )); then
 
   if [[ "$TMUX_AUTOSTART" == 'true' && -z "$TMUX" ]]; then
     function _tmux_autostart() {
+      add-zsh-hook -d precmd _tmux_autostart
       if [[ "$TMUX_OVERRIDE_TERM" == 'true' ]]; then
         TERM=xterm-256color tmux -2 attach-session || TERM=xterm-256color tmux -2 new-session
       else
         tmux -2 attach-session || tmux -2 new-session
       fi
-
-      exit 0
+      
+      # Exit shell only if tmux exited normally (e.g. detached)
+      [[ $? -eq 0 ]] && exit 0
     }
 
     autoload -Uz add-zsh-hook
@@ -49,7 +51,7 @@ if (( $+commands[tmux] )); then
 
   if [[ $TMUX_MOTD == true && ! -z $TMUX ]]; then
     declare -a list_windows; list_windows=( ${(f)"$(command tmux list-windows)"} )
-    if [[ "${#list_windows}" == 1 && "${list_windows}" == *"1 panes"*  ]]; then
+    if [[ "${#list_windows}" == 1 && "${list_windows}" == *"1 pane"*  ]]; then
       tmux-motd
     fi
   fi
